@@ -88,16 +88,18 @@ function makeResponsive() {
         .attr("cy", d => yScale(d.smokers))
         .attr("r", "15")
         .attr('opacity', '0.8');
+    
 
-    var textGroup = chartGroup.selectAll("text")
+
+    var textGroup = chartGroup.selectAll(".stateText")
       .data(healthData)
       .enter()
       .append('text')
       .classed('stateText', true)
-      .attr('font-size', '7px')
-      .attr("cx", d => xScale(d.age))
-      .attr("cy", d => yScale(d.smokers))
-      .text(d =>d.abbr);
+      .attr('font-size', '10px')
+      .text(d=>d.abbr)
+      .attr("x", d => xScale(d.age))
+      .attr("y", d => yScale(d.smokers)+2)
   
   
     }).catch(function(error) {
