@@ -27,10 +27,10 @@ function makeResponsive() {
     var svgHeight = window.innerHeight;
   
     var margin = {
-      top: 30,
-      bottom: 30,
-      right:30,
-      left: 30
+      top: 20,
+      bottom: 100,
+      right:40,
+      left: 100
     };
   
     var height = svgHeight - margin.top - margin.bottom;
