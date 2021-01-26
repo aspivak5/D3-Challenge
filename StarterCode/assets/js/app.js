@@ -111,13 +111,27 @@ function makeResponsive() {
     .attr("dy", "1em")
     .classed("aText",true)
     .text("Smokers(%)");
+
+    //add tooltip
+    var tooltip = d3.tip().attr("class","tooltip")
+    .html(function(d){
+      return `${d.abbr}<br> Smokers: ${d.smokers}% <br> Age: ${d.age}`
+    });
+
+    chartGroup.call(tooltip);
+
+    textGroup.on("mouseover",function(d){
+      tooltip.show(d,this);
+    })
+    .on("mouseout",function(d){
+      tooltip.hide(d);
+    })
   
   
     }).catch(function(error) {
       console.log(error);
     });
   }
-  
   // When the browser loads, makeResponsive() is called.
   makeResponsive();
   
