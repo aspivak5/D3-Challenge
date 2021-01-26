@@ -36,10 +36,11 @@ function makeResponsive() {
     var height = svgHeight - margin.top - margin.bottom;
     var width = svgHeight - margin.left - margin.right;
   
-    var chart = d3.select("#scatter").append("div").classed("chart",true)
+    //var chart = d3.select("#scatter").append("div").classed("chart",true)
     // Append SVG element
-    var svg = chart
+    var svg = d3.select("#scatter")
       .append("svg")
+      .classed("chart",true)
       .attr("height", svgHeight)
       .attr("width", svgWidth);
   
@@ -59,7 +60,7 @@ function makeResponsive() {
   
       // create scales
       var xScale = d3.scaleLinear()
-        .domain([28,d3.max(healthData, d => d.age)+4])
+        .domain([28,d3.max(healthData, d => d.age)+5])
         .range([0, width]);
   
       var yScale = d3.scaleLinear()
@@ -89,8 +90,6 @@ function makeResponsive() {
         .attr("r", "15")
         .attr('opacity', '0.8');
     
-
-
     var textGroup = chartGroup.selectAll(".stateText")
       .data(healthData)
       .enter()
@@ -100,6 +99,18 @@ function makeResponsive() {
       .text(d=>d.abbr)
       .attr("x", d => xScale(d.age))
       .attr("y", d => yScale(d.smokers)+2)
+
+    //add axis labels 
+    chartGroup.append("text")
+    .attr("transform",`translate(${width / 2}, ${height + margin.top + 30})`).text("Age(Median)").classed("aText",true);
+
+    chartGroup.append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("y", 0 - margin.left + 40)
+    .attr("x", 0 - (height / 2))
+    .attr("dy", "1em")
+    .classed("aText",true)
+    .text("Smokers(%)");
   
   
     }).catch(function(error) {
