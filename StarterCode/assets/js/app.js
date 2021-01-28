@@ -19,7 +19,7 @@ function makeResponsive() {
   
     var margin = {
       top: 20,
-      bottom: 100,
+      bottom: 80,
       right:40,
       left: 100
     };
