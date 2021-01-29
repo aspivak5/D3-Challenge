@@ -20,8 +20,8 @@ function makeResponsive() {
     var margin = {
       top: 20,
       bottom: 80,
-      right:40,
-      left: 100
+      right:10,
+      left: 50
     };
   
     var height = svgHeight - margin.top - margin.bottom;
@@ -51,11 +51,11 @@ function makeResponsive() {
   
       // create scales
       var xScale = d3.scaleLinear()
-        .domain([25,d3.max(healthData, d => d.age)+5])
+        .domain([d3.min(healthData, d => d.age)*0.9,d3.max(healthData, d => d.age)*1.1])
         .range([0, width]);
   
       var yScale = d3.scaleLinear()
-        .domain([9,d3.max(healthData, d => d.smokers)+2])
+        .domain([d3.min(healthData, d => d.smokers)*0.7,d3.max(healthData, d => d.smokers)*1.1])
         .range([height, 0]);
   
       // create axes
@@ -93,15 +93,17 @@ function makeResponsive() {
 
     //add axis labels 
     chartGroup.append("text")
-    .attr("transform",`translate(${width / 2}, ${height + margin.top + 30})`).text("Age(Median)").classed("aText",true);
+    .attr("transform",`translate(${width / 2}, ${height + margin.top + 30})`)
+    .text("Age (Median)")
+    .classed("aText",true);
 
     chartGroup.append("text")
     .attr("transform", "rotate(-90)")
-    .attr("y", 0 - margin.left + 40)
+    .attr("y", 0 - margin.left +5)
     .attr("x", 0 - (height / 2))
     .attr("dy", "1em")
     .classed("aText",true)
-    .text("Smokers(%)");
+    .text("Smokers (%)");
 
     //add tooltip
     var tooltip = d3.tip().attr("class","tooltip")
