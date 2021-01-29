@@ -51,7 +51,7 @@ function makeResponsive() {
   
       // create scales
       var xScale = d3.scaleLinear()
-        .domain([28,d3.max(healthData, d => d.age)+5])
+        .domain([25,d3.max(healthData, d => d.age)+5])
         .range([0, width]);
   
       var yScale = d3.scaleLinear()

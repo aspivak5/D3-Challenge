@@ -15,7 +15,7 @@ function makeResponsive(){
     var margin = {
     top: 20,
     right: 40,
-    bottom: 100,
+    bottom: 90,
     left: 100
     };
 
@@ -43,18 +43,18 @@ function makeResponsive(){
     function xScale(healthData, chosenXAxis) {
     // create scales
         var xLinearScale = d3.scaleLinear()
-            .domain([d3.min(healthData, d => d[chosenXAxis]),
-             d3.max(healthData, d => d[chosenXAxis])])
+            .domain([d3.min(healthData, d => d[chosenXAxis])*0.9,
+             d3.max(healthData, d => d[chosenXAxis])*1.1])
             .range([0, width]);
 
         return xLinearScale;
     }
-
+// function used for updating y-scale var upon click on axis label
     function yScale(healthData, chosenYAxis) {
     // create scales
         var yLinearScale = d3.scaleLinear()
-            .domain([d3.min(healthData, d => d[chosenYAxis]),
-            d3.max(healthData, d => d[chosenYAxis])])
+            .domain([d3.min(healthData, d => d[chosenYAxis])*0.7,
+            d3.max(healthData, d => d[chosenYAxis])*1.1])
             .range([height, 0]);
 
         return yLinearScale;
@@ -70,7 +70,7 @@ function makeResponsive(){
 
         return xAxis;
     }
-
+// function used for updating yAxis var upon click on axis label
     function renderYAxes(newYScale, yAxis) {
         var leftAxis = d3.axisLeft(newYScale);
 
@@ -91,7 +91,8 @@ function makeResponsive(){
             .attr("cy", d => newYScale(d[chosenYAxis]));
         return circlesGroup;
     }
-
+  // function used for updating text within circle group with a transition to
+    // new circles
     function renderText(textGroup, newXScale, chosenXAxis, newYScale, chosenYAxis){
         textGroup.transition()
             .duration(1000)
@@ -101,7 +102,7 @@ function makeResponsive(){
         return textGroup;
     }
 
-    // function used for updating circles group with new tooltip
+    // function used for updating circles group and text group with new tooltip
     function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup, textGroup) {
     
             if (chosenXAxis === "poverty") {
@@ -136,7 +137,6 @@ function makeResponsive(){
             circlesGroup.on("mouseover", function(data) {
                 toolTip.show(data, this);
                 })
-            // onmouseout Event
             .on("mouseout", function(data) {
                 toolTip.hide(data);
             });
@@ -146,7 +146,6 @@ function makeResponsive(){
             textGroup.on("mouseover", function(data) {
             toolTip.show(data, this);
             })
-            // onmouseout Event
             .on("mouseout", function(data) {
                 toolTip.hide(data);
             });
